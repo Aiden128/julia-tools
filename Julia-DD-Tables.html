@@ -26,7 +26,6 @@
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
 
     function splitText() {
@@ -77,14 +76,14 @@
                 var mer = "   <a href=http://www.merriam-webster.com/dictionary/" + vocu[i] + ' target=_blank >Webster</a>';
                 //Macmillan
                 var mac = "   <a href=http://www.macmillandictionary.com/dictionary/british/" + vocu[i] + ' target=_blank >Macmillan</a>';
-                //Webster
-                var the = "   <a href=http://thesaurus.com/browse/" + vocu[i] + ' target=_blank >Webster</a>';
+                //Thesaurus
+                var the = "   <a href=http://thesaurus.com/browse/" + vocu[i] + ' target=_blank >Thesaurus</a>';
                 //Dictionary
                 var dic = "   <a href=http://dictionary.reference.com/browse/" + vocu[i] + '?s=t target=_blank >Dictionary</a>';
                 //Google
-                var goo = "   <a href=https://www.google.com/search?source=dict-chrome-ex&defl=en&hl=en&q=" + vocu[i] + '&tbo=1&tbs=dfn:1 target=_blank >Google</a>';
+                var goo = "   <a href=https://translate.google.com.tw/?hl=zh-TW#en/zh-TW/apple" + vocu[i] + '&tbo=1&tbs=dfn:1 target=_blank >Google</a>';
 
-                var row = [vocu[i], col, cam, oxyler, oxyadv, lon, mer, mac, the, dic, goo, dic, goo];
+                var row = [vocu[i], col, cam, oxyler, oxyadv, lon, mer, mac, the, dic, goo];
                 table.push(row);
             }
         }
@@ -107,9 +106,11 @@
             }, {
                 "sTitle": "Longman"
             }, {
+                "sTitle": "Webster"
+            }, {
                 "sTitle": "Macmillan"
             }, {
-                "sTitle": "Webster"
+                "sTitle": "Thesaurus"
             }, {
                 "sTitle": "Dictionary"
             }, {
