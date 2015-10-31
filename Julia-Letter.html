@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <style type="text/css">
+        <!--
+        body {            
+            margin-top: 0px;
+        }
+        -->
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+    <script type="text/javascript">
+        //在page load的時候執行
+        $(document).ready(function () {
+            //Getdata();
+        });
+
+        function Getdata(input) {
+            //jQuery裡面的方法  --$.getJSON ===>jQuery.getJSON( url, [data], [callback] ) 
+
+            $.getJSON("cut_2_Data.html",
+                function (data) {
+                    $.each(data.item, function (i, item) {
+                        //$("#test").append(item.id + '<br />');
+                        input.push(item.vocabulary);
+                    });
+                });
+        }
+        var input_str_arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
+                             , 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        //Getdata(input_str_arr);
+        $.unique(input_str_arr);
+        var remember_arr = [];
+        var count = 0;
+        function randomit() {
+
+            var random_seed = $("#count").val();
+            random_seed = parseInt(random_seed, 10);
+
+            if (random_seed < 27) {
+                //  if ($("#once").attr('checked')) {
+                var ttl = input_str_arr.length;
+                //    if (remember_arr.length < ttl) {
+                var letter = '';
+                for (i = 0; i < random_seed ; i++) {
+                    var ran = Math.floor((Math.random() * ttl) + 1);
+                    while ($.inArray(ran, remember_arr) > -1) {
+                        //alert(ran);
+                        ran = Math.floor((Math.random() * ttl) + 1);
+                    }
+                    remember_arr.push(ran);
+                    letter = letter + input_str_arr[ran - 1] + ' ';
+                   // if ((i+1) % 8 == 0)
+                        //letter = letter + '<br />';
+                }
+                $("#display").html(letter);
+                count = count + 1;
+                $("#record").html(count + "題");
+                remember_arr.length = 0;
+            } else {
+
+                alert('英文字母只有 26 個字喔');
+
+            }
+            //   } else {
+            //       alert("已無考題，你覺得夠了嗎？如果不夠，請清空記錄再開始，做到300分!!");
+            //   }
+            //  } else {
+            //      $("#display").html(Math.floor((Math.random() * $("#max").val()) + 1));
+            //  }
+        }
+        function clear_arr() {
+            count = 0;
+            $("#record").html(count + "題");
+        }
+
+        $(document).ready(function () {
+            $("#record").html(count + "題");
+            $("#display").click(function () {
+                randomit();
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!--<input type="checkbox" name="once" id="once" value="1" CHECKED /><span>切音單字不重複<span>
+  <input type="submit" onclick="javascript: randomit();" value="隨機產生單字" /> <span>(也可以直接在任意位置上點擊)</span>
+  <br />
+  <span>第</span><span id="record"></span><input type="submit" onclick="javascript: clear_arr();" value="清空記錄" />-->
+    字母練習個數（最多不能超過 26 個）：<input type="text" id="count" value="5" /><input type="submit" onclick="javascript: randomit();" value="重新出題" /><br />
+    <span>第</span> <span id="record"></span> <input type="submit" onclick="javascript: clear_arr();" value="清空記錄" />
+
+    <center><h1 id="display" style="font-size:150px;font-family:Calibri;cursor: pointer;width:auto;height:auto;border-style:solid">start</h1></center>
+
+</body>
+</html>

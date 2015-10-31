@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>Beta - Speed Dictionary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://dl.dropboxusercontent.com/u/36654930/R_Julia/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+	<table>
+		<tbody><tr>
+			<td width="65%">
+				快速多字典查詢<br>
+				<input name="checkbox" value="Collins" type="checkbox">
+					<a href="http://www.collinsdictionary.com/dictionary/english/" target="_blank">Collins</a>
+
+				<input name="checkbox" value="Cambridge" checked="checked" type="checkbox">
+					<a href="http://dictionary.cambridge.org/dictionary/learner-english/" target="_blank">Cambridge</a>
+
+				<input name="checkbox" value="Oxford" type="checkbox">
+					<a href="http://oxforddictionaries.com/definition/english/" target="_blank">Oxford</a>
+
+				<input name="checkbox" value="OxfordAdv" type="checkbox">
+					<a href="http://oaadonline.oxfordlearnersdictionaries.com/dictionary/" target="_blank">Oxford Adv</a>
+
+				<input name="checkbox" value="OxfordLearner" checked="checked" type="checkbox">
+					<a href="http://oald8.oxfordlearnersdictionaries.com/dictionary/" target="_blank">Oxford Learner</a>
+
+				<input name="checkbox" value="Longman" type="checkbox">
+					<a href="http://www.ldoceonline.com/search/?q=">Longman</a>
+
+				<input name="checkbox" value="Macmilland" checked="checked" type="checkbox">
+					<a href="http://www.macmillandictionary.com/dictionary/american/" target="_blank">Macmilland</a>
+
+				<input name="checkbox" value="Thesaurus" type="checkbox">
+					<a href="http://thesaurus.com/browse/" target="_blank">Thesaurus</a>
+
+				<br>
+				<input id="keyword" name="button1" placeholder="請輸入單字" style="width:300px;height:100px;font-size:40px;ime-mode:disabled" type="textarea">
+				<input id="search" name="button2" value="search" style="width:200px;height:100px;font-size:40px" type="button"><br>
+			<br>
+				
+			</td>	
+			<td width="35%">
+				使用步驟：<br>
+				1. 勾選要查詢的字典<br>
+				2. 輸入要查的單字，目前只能輸入一個單字<br>
+				3. 按下search，將會自動開出所有頁面，同本字典不會重複開<br>
+				<br>
+				ps. 有些字典可能會查不到，需要自行在該字典再搜尋一次<br>
+				    可能會出現<font color="red">快顯以封鎖</font>，點擊它，在點<font color="red">永遠允許這個網站的快顯</font>，即可解決<br>
+				    <br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				最近查詢字(可點擊)
+				<ol id="word" style="font-size:20px">
+					</ol>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</tbody></table>
+
+</body></html>
+
+<script type="text/javascript">
+$(document).ready(function($) {
+   $("#search").click(function(){
+		var keyword = $.trim($("#keyword").val().toLowerCase());
+		
+		if(keyword!=''){
+			$("#word").prepend("<li class='wordList'>"+keyword)+"</li>";
+			$("input[type='checkbox']:checked").each(function() {
+					window.open($(this).next("a").attr("href")+keyword,$(this).val());
+			});
+
+			if (window.clipboardData && clipboardData.setData) {
+				window.clipboardData.setData('text',keyword);
+			}
+		}
+	});
+
+   $("#keyword").click(function(){
+		this.select();
+	});
+
+   $("#keyword").keyup(function(event){
+	    if(event.keyCode == 13){
+	        $("#search").click();
+	    }
+	});
+
+    $(".wordList").live("click", function(){ 
+    	$("#keyword").val($(this).text());
+    	$("#search").click();
+    });  
+});
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-19253314-6', 'mooo.com');
+  ga('send', 'pageview');
+
+
+</script>

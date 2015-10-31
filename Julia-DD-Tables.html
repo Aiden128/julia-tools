@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <title> Julia English 小玩意兒</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <style type="text/css">
+    body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+           padding-left: 20px;
+    }
+    
+    .sidebar-nav {
+        padding: 9px 0;
+    }
+    </style>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function splitText() {
+
+        var sign = [',', '!', '“', '”', '.', '“', '! ', ', ', '.”'];
+        var stopword = ["The", "There", "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", "cannot", "could", "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"];
+
+        if (!$("#Checkbox1").attr('checked')) {
+            stopword = [];
+        }
+
+        var docu = $('#docu').val().trim();
+        docu = docu.replace(/[\ |\“|\”|\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g, " ");
+
+        var docu_arr = new Array();
+        var vocu = Array();
+        var tmp = '';
+        docu_arr = docu.split(' ');
+
+        for (i = 0; i < docu_arr.length; i++) {
+            var flag = 0;
+            for (n = 0; n < vocu.length; n++) {
+                if (vocu[n] == docu_arr[i]) {
+                    flag = 1;
+                }
+            }
+
+            if (flag == 0)
+                vocu.push(docu_arr[i]);
+        }
+
+        var table = [];
+
+        for (i = 0; i < vocu.length; i++) {
+            if (stopword.indexOf(vocu[i]) == -1) {
+
+                //Collins
+                var col = "   <a href=http://www.collinsdictionary.com/dictionary/english-cobuild-learners/" + vocu[i] + '&?showCookiePolicy=true target=_blank > Collins</a>';
+                //Cambridge
+                var cam = "   <a href=http://dictionary.cambridge.org/dictionary/learner-english/" + vocu[i] + ' target=_blank > Cambridge</a>';
+                //Oxford Ler
+                var oxyler = "   <a href=http://www.oxfordlearnersdictionaries.com/definition/english/" + vocu[i] + '?q=' + vocu[i] + ' target=_blank >Oxford Learner</a>';
+                //Oxford Adv
+                var oxyadv = "   <a href=http://www.oxforddictionaries.com/definition/english/" + vocu[i] + ' target=_blank >Oxford Adv</a>';
+                //Longman
+                var lon = "   <a href=http://www.ldoceonline.com/search/?q=" + vocu[i] + ' target=_blank >Longman</a>';
+                //Webster
+                var mer = "   <a href=http://www.merriam-webster.com/dictionary/" + vocu[i] + ' target=_blank >Webster</a>';
+                //Macmillan
+                var mac = "   <a href=http://www.macmillandictionary.com/dictionary/british/" + vocu[i] + ' target=_blank >Macmillan</a>';
+                //Webster
+                var the = "   <a href=http://thesaurus.com/browse/" + vocu[i] + ' target=_blank >Webster</a>';
+                //Dictionary
+                var dic = "   <a href=http://dictionary.reference.com/browse/" + vocu[i] + '?s=t target=_blank >Dictionary</a>';
+                //Google
+                var goo = "   <a href=https://www.google.com/search?source=dict-chrome-ex&defl=en&hl=en&q=" + vocu[i] + '&tbo=1&tbs=dfn:1 target=_blank >Google</a>';
+
+                var row = [vocu[i], col, cam, oxyler, oxyadv, lon, mer, mac, the, dic, goo, dic, goo];
+                table.push(row);
+            }
+        }
+
+        $('#vocu').html(tmp + '<br />');
+        $('#vocu').html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>');
+        $('#example').dataTable({
+            "iDisplayLength": 50,
+            "aaData": table,
+            "aoColumns": [{
+                "sTitle": "單字"
+            }, {
+                "sTitle": "Collins"
+            }, {
+                "sTitle": "Cambridge"
+            }, {
+                "sTitle": "Oxford Learner"
+            }, {
+                "sTitle": "Oxford Adv"
+            }, {
+                "sTitle": "Longman"
+            }, {
+                "sTitle": "Macmillan"
+            }, {
+                "sTitle": "Webster"
+            }, {
+                "sTitle": "Dictionary"
+            }, {
+                "sTitle": "Google"
+            }]
+        });
+
+    }
+    </script>
+</head>
+
+<body>
+    請將要查詢的文章段落或單字貼到下方表格中，系統會自動將查詢結果列在表格中，點選後即可查閱查詢結果：
+    <br />
+    <input type="checkbox" name="once" id="Checkbox1" value="1" checked /><span> 啟用「不查詢常用字」功能（不查詢常用字）<span><br />
+        <textarea id="docu" style="height: 110px; width: 499px"></textarea>
+        <input type="submit" onclick="javascript: splitText();" value="整理單字" /><br /><br />
+        分析結果如下，可點選後方超連結直接查詢查閱結果：
+        <br />
+    <div>
+        <div id="vocu" style="font-family: Calibri;"></div>
+    </div>
+</body>
+</html>
